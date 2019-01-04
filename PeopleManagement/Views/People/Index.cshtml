@@ -1,0 +1,118 @@
+﻿
+@{
+    ViewBag.Title = "People Management";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <span class="font-weight-bold">First Name:</span>
+            <input type="text" id="fnTextbox" name="firstName" value="" class="form-control" />
+        </div>
+        <div class="col">
+            <span class="font-weight-bold">Last Name:</span>
+            <input type="text" id="lnTextbox" name="lastName" value="" class="form-control" />
+        </div>
+        <div class="col">
+            <span class="font-weight-bold">Gender:</span>
+            <select id="genderDropdown" class="form-control">
+                <option>Select</option>
+                <option value="F">Female</option>
+                <option value="M">Male</option>
+            </select>
+        </div>
+        <div class="col">
+            <span class="font-weight-bold">State:</span>
+            @Html.DropDownList("States", ViewBag.states as SelectList, "Select", new { @class = "form-control",@id="statesDropDown" })
+        </div>
+        <div class="col">
+            <span class="font-weight-bold">DOB:</span>
+            <input type="date" id="DOBTextBox" name="DOB" value="" class="form-control" />
+        </div>
+
+    </div>
+    <div class="row mt-3">
+
+        <div class="col">
+            <input type="button" id="SearchButton" onclick="searchPeople();" value="search" class="btn btn-primary btn-md" />
+        </div>
+        <div class="col">
+            <button class="btn btn-primary btn-md float-right" id="AddButton"  onclick="ShowModal(null);" >Add Person</button>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-3">
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Gender</th>
+                <th>State</th>
+                <th>DOB</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody id="PersonList"></tbody>
+    </table>
+</div>
+<div class="modal" id="AddPersonModal" tabindex="-1" role="dialog" aria-labelledby="AddPerson" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">                
+                <h5 class="modal-title">Add Person</h5>
+            </div>
+
+            <div class="modal-body">
+                <!-- The form is placed inside the body of modal -->
+                <form id="addPersonForm"  class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-xs-3 control-label">First Name</label>
+                        <div class="col-xs-5">
+                            <input type="text" class="form-control" name="firstName" id="firstName" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-xs-3 control-label">Last Name</label>
+                        <div class="col-xs-5">
+                            <input type="text" class="form-control" name="lastName" id="lastName" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-3 control-label">Gender</label>
+                        <div class="col-xs-5">
+                            <select id="gender" name="gender" class="form-control">
+                                <option value="">Select</option>
+                                <option value="F">Female</option>
+                                <option value="M">Male</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-3 control-label">State</label>
+                        <div class="col-xs-5">
+                            @Html.DropDownList("States", ViewBag.states as SelectList, new { @class = "form-control", @id = "state", @name = "state" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-3 control-label">DOB</label>
+                        <div class="col-xs-5">
+                            <input type="date" class="form-control" name="dob" id="dob" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-5 col-xs-offset-3">
+                            <button class="btn btn-primary" id="saveButton">Save</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Scripts.Render("~/Scripts/PeopleManagmentScripts/PeopleManagement.js")
+
